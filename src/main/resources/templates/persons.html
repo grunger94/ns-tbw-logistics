@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <table>
+        <thead>
+        <tr>
+            <th th:text="#{person.id}">ID</th>
+            <th th:text="#{person.name}">Name</th>
+            <th th:text="#{person.office}">Office</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="person: ${personList}">
+            <td th:text="${person.id}">ID</td>
+            <td th:text="${person.name}">Name</td>
+            <td th:text="${person.office}">Office</td>
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>
