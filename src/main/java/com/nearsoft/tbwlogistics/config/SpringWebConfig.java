@@ -18,6 +18,7 @@ public class SpringWebConfig implements WebMvcConfigurer {
     public MessageSource messageSource() {
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
         messageSource.setBasename("classpath:static/labels");
+        messageSource.setCacheSeconds(0);
         return messageSource;
     }
 }

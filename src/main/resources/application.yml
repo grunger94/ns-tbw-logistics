@@ -1,7 +1,11 @@
 
-server.port: 9000
+server:
+  port: 9000
+  error.include-stacktrace: always
+
 spring:
   h2.console.enabled: true
+  thymeleaf.cache: false
 
 #  Default H2 configuration
 #  datasource:

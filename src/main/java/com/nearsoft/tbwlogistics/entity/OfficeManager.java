@@ -9,38 +9,37 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
-public class Person {
+public class OfficeManager {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
-    private String name;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name="office_id", nullable=false)
     private Office office;
 
-    protected Person() {}
+    @OneToOne
+    @JoinColumn(name="person_id", nullable = false)
+    private Person person;
 
-    public Person(String name, Office office) {
-        this.name = name;
+    protected OfficeManager() {
+    }
+
+    public OfficeManager(Office office, Person person) {
         this.office = office;
+        this.person = person;
     }
 
     public Long getId() {
         return id;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public Office getOffice() {
         return office;
     }
 
-    @Override
-    public String toString() {
-        return String.format("Person[id=%d, name='%s', office='%s']", id, name, office);
+    public Person getPerson() {
+        return person;
     }
 }

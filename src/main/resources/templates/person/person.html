@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{global.person}"></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <h1 th:text="#{global.person}">Person</h1>
+
+    <h4 th:text="#{global.id}">ID</h4>
+    <p th:text="${person.id}">ID</p>
+
+    <h4 th:text="#{global.name}">Name</h4>
+    <p th:text="${person.name}">Name</p>
+
+    <h4 th:text="#{global.office}">Office</h4>
+    <p th:text="${person.office.name}">Office</p>
+</body>
+</html>

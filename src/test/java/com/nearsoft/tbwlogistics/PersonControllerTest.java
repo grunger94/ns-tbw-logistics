@@ -4,6 +4,7 @@ import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.isEmptyOrNullString;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -19,6 +20,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.web.util.NestedServletException;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -30,9 +32,9 @@ public class PersonControllerTest {
 
     @Test
     public void getAllPersons() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.get("/persons").accept(MediaType.APPLICATION_JSON))
+        mvc.perform(MockMvcRequestBuilders.get("/persons"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("persons"))
+                .andExpect(view().name("person/persons"))
                 .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
                 .andExpect(model().attribute("personList", hasSize(2)))
                 .andExpect(model().attribute("personList", allOf(
@@ -40,14 +42,24 @@ public class PersonControllerTest {
                             allOf(
                                 hasProperty("id", Matchers.is(1L)),
                                 hasProperty("name", Matchers.is("Rafael Alejandro Manrique Zamora")),
-                                hasProperty("office", Matchers.is("CUU"))
+                                hasProperty("office", allOf(
+                                    hasProperty("id", Matchers.is(1L)),
+                                    hasProperty("name", Matchers.is("CUU")),
+                                    hasProperty("personList", hasSize(2)),
+                                    hasProperty("officeManagers", hasSize(1))
+                                ))
                             )
                         ),
                         hasItem(
                             allOf(
                                 hasProperty("id", Matchers.is(2L)),
                                 hasProperty("name", Matchers.is("Juan Daniel Amparán De La Garza")),
-                                hasProperty("office", Matchers.is("CUU"))
+                                hasProperty("office", allOf(
+                                    hasProperty("id", Matchers.is(1L)),
+                                    hasProperty("name", Matchers.is("CUU")),
+                                    hasProperty("personList", hasSize(2)),
+                                    hasProperty("officeManagers", hasSize(1))
+                                ))
                             )
                         )
                 )));
@@ -55,16 +67,69 @@ public class PersonControllerTest {
 
     @Test
     public void getPersonsByName() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.get("/persons/{id}", 1).accept(MediaType.APPLICATION_JSON))
+        mvc.perform(MockMvcRequestBuilders.get("/persons").param("name", "MORA"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("person"))
+                .andExpect(view().name("person/persons"))
                 .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
-                .andExpect(model().attribute("person",
-                        allOf(
-                                hasProperty("id", Matchers.is(1L)),
-                                hasProperty("name", Matchers.is("Rafael Alejandro Manrique Zamora")),
-                                hasProperty("office", Matchers.is("CUU"))
+                .andExpect(model().attribute("personList", hasSize(1)))
+                .andExpect(model().attribute("personList",
+                        hasItem(
+                                allOf(
+                                        hasProperty("id", Matchers.is(1L)),
+                                        hasProperty("name", Matchers.is("Rafael Alejandro Manrique Zamora")),
+                                        hasProperty("office", allOf(
+                                                hasProperty("id", Matchers.is(1L)),
+                                                hasProperty("name", Matchers.is("CUU")),
+                                                hasProperty("personList", hasSize(2)),
+                                                hasProperty("officeManagers", hasSize(1))
+                                        ))
+                                )
                         )
                 ));
+    }
+
+    @Test
+    public void getPersonsByNotExistingName() throws Exception {
+        mvc.perform(MockMvcRequestBuilders.get("/persons").param("name", "jack"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("person/persons"))
+                .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
+                .andExpect(model().attribute("personList", hasSize(0)));
+    }
+
+    @Test
+    public void getPersonById() throws Exception {
+        mvc.perform(MockMvcRequestBuilders.get("/persons/{id}", 1))
+                .andExpect(status().isOk())
+                .andExpect(view().name("person/person"))
+                .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
+                .andExpect(model().attribute("person",
+                    allOf(
+                            hasProperty("id", Matchers.is(1L)),
+                            hasProperty("name", Matchers.is("Rafael Alejandro Manrique Zamora")),
+                            hasProperty("office", allOf(
+                                    hasProperty("id", Matchers.is(1L)),
+                                    hasProperty("name", Matchers.is("CUU")),
+                                    hasProperty("personList", hasSize(2)),
+                                    hasProperty("officeManagers", hasSize(1))
+                            ))
+                    )
+                ));
+    }
+
+    @Test(expected = NestedServletException.class)
+    public void getPersonByNotExistingId() throws Exception {
+        mvc.perform(MockMvcRequestBuilders.get("/persons/{id}", 999));
+    }
+
+    @Test(expected = NestedServletException.class)
+    public void getPersonByStringId() throws Exception {
+        mvc.perform(MockMvcRequestBuilders.get("/persons/{id}", "999"));
+    }
+
+    @Test
+    public void getPersonByInvalidId() throws Exception {
+        mvc.perform(MockMvcRequestBuilders.get("/persons/{id}", "some wild string"))
+                .andExpect(status().is4xxClientError());
     }
 }

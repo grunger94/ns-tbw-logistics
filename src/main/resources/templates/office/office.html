@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{global.office}">Office</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <h1 th:text="#{global.office}">Office</h1>
+
+    <h4 th:text="#{global.id}"></h4>
+    <p th:text="${office.id}">ID</p>
+
+    <h4 th:text="#{global.name}"></h4>
+    <p th:text="${office.name}">Name</p>
+
+    <h4 th:text="#{office.managers}"></h4>
+    <ul>
+        <li th:each="manager: ${office.officeManagers}">
+            <p th:text="${manager.person.name}"></p>
+        </li>
+    </ul>
+
+    <h4 th:text="#{global.persons}"></h4>
+    <ul>
+        <li th:each="person: ${office.personList}">
+            <p th:text="${person.name}"></p>
+        </li>
+    </ul>
+</body>
+</html>

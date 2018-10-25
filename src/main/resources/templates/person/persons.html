@@ -1,23 +1,23 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Getting Started: Serving Web Content</title>
+    <title th:text="#{global.persons}">Persons</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
     <table>
         <thead>
         <tr>
-            <th th:text="#{person.id}">ID</th>
-            <th th:text="#{person.name}">Name</th>
-            <th th:text="#{person.office}">Office</th>
+            <th th:text="#{global.id}">ID</th>
+            <th th:text="#{global.name}">Name</th>
+            <th th:text="#{global.office}">Office</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="person: ${personList}">
             <td th:text="${person.id}">ID</td>
             <td th:text="${person.name}">Name</td>
-            <td th:text="${person.office}">Office</td>
+            <td th:text="${person.office.name}">Office</td>
         </tr>
         </tbody>
     </table>
