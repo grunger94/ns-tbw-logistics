@@ -1,4 +1,4 @@
-package com.nearsoft.tbwlogistics;
+package com.nearsoft.tbwlogistics.controller;
 
 import org.hamcrest.Matchers;
 import org.junit.Test;

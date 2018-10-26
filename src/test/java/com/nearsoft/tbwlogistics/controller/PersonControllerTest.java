@@ -1,4 +1,4 @@
-package com.nearsoft.tbwlogistics;
+package com.nearsoft.tbwlogistics.controller;
 
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.hasItem;
