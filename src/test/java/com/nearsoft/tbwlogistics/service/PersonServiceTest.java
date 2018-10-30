@@ -70,6 +70,6 @@ public class PersonServiceTest {
         List<Person> persons = personService.findByName("");
         Assert.assertNotNull(persons);
         Assert.assertFalse(persons.isEmpty());
-        Assert.assertEquals(persons.size(), 2);
+        Assert.assertEquals(persons.size(), 6);
     }
 }

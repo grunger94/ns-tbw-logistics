@@ -38,7 +38,7 @@ public class PersonRepositoryTest {
         Assert.assertEquals(office.getId(), new Long(1));
         Assert.assertEquals(office.getName(), "CUU");
         Assert.assertNotNull(office.getPersonList());
-        Assert.assertEquals(office.getPersonList().size(), 2);
+        Assert.assertEquals(office.getPersonList().size(), 3);
         Assert.assertNotNull(office.getOfficeManagers());
         Assert.assertEquals(office.getOfficeManagers().size(), 1);
     }
@@ -57,18 +57,18 @@ public class PersonRepositoryTest {
 
         Assert.assertNotNull(personList);
         Assert.assertFalse(personList.isEmpty());
-        Assert.assertEquals(personList.size(), 2);
+        Assert.assertEquals(personList.size(), 6);
 
-        Person person = personList.get(0);
+        Person person = personList.get(2);
 
-        Assert.assertEquals(person.getId(), new Long(1));
-        Assert.assertEquals(person.getName(), "Rafael Alejandro Manrique Zamora");
+        Assert.assertEquals(person.getId(), new Long(3));
+        Assert.assertEquals(person.getName(), "Norma Amaya");
         Assert.assertNotNull(person.getOffice());
 
-        person = personList.get(1);
+        person = personList.get(4);
 
-        Assert.assertEquals(person.getId(), new Long(2));
-        Assert.assertEquals(person.getName(), "Juan Daniel Amparán De La Garza");
+        Assert.assertEquals(person.getId(), new Long(5));
+        Assert.assertEquals(person.getName(), "Luisa Yañes");
         Assert.assertNotNull(person.getOffice());
     }
 

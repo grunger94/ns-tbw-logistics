@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{global.dailyActivities}">Daily Activities</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th th:text="#{global.id}">ID</th>
+        <th th:text="#{global.name}">Name</th>
+        <th th:text="#{global.description}">Description</th>
+        <th th:text="#{global.date}">Date</th>
+        <th th:text="#{dailyActivity.durationInHours}">Duration</th>
+        <th th:text="#{dailyActivity.place}">Place</th>
+        <th th:text="#{dailyActivity.attendanceLimit}">Attendance Limit</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="dailyActivity: ${dailyActivities}">
+        <td th:text="${dailyActivity.id}">ID</td>
+        <td th:text="${dailyActivity.name}">Name</td>
+        <td th:text="${dailyActivity.description}">Description</td>
+        <td th:text="${dailyActivity.date}">Date</td>
+        <td th:text="${dailyActivity.durationInHours}">Duration</td>
+        <td th:text="${dailyActivity.place}">Place</td>
+        <td th:text="${dailyActivity.attendanceLimit}">Attendance Limit</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

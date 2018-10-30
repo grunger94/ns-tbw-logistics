@@ -36,38 +36,24 @@ public class PersonControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("person/persons"))
                 .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
-                .andExpect(model().attribute("personList", hasSize(2)))
-                .andExpect(model().attribute("personList", allOf(
-                        hasItem(
-                            allOf(
+                .andExpect(model().attribute("personList", hasSize(6)))
+                .andExpect(model().attribute("personList", hasItem(
+                        allOf(
+                            hasProperty("id", Matchers.is(1L)),
+                            hasProperty("name", Matchers.is("Rafael Alejandro Manrique Zamora")),
+                            hasProperty("office", allOf(
                                 hasProperty("id", Matchers.is(1L)),
-                                hasProperty("name", Matchers.is("Rafael Alejandro Manrique Zamora")),
-                                hasProperty("office", allOf(
-                                    hasProperty("id", Matchers.is(1L)),
-                                    hasProperty("name", Matchers.is("CUU")),
-                                    hasProperty("personList", hasSize(2)),
-                                    hasProperty("officeManagers", hasSize(1))
-                                ))
-                            )
-                        ),
-                        hasItem(
-                            allOf(
-                                hasProperty("id", Matchers.is(2L)),
-                                hasProperty("name", Matchers.is("Juan Daniel Amparán De La Garza")),
-                                hasProperty("office", allOf(
-                                    hasProperty("id", Matchers.is(1L)),
-                                    hasProperty("name", Matchers.is("CUU")),
-                                    hasProperty("personList", hasSize(2)),
-                                    hasProperty("officeManagers", hasSize(1))
-                                ))
-                            )
+                                hasProperty("name", Matchers.is("CUU")),
+                                hasProperty("personList", hasSize(3)),
+                                hasProperty("officeManagers", hasSize(1))
+                            ))
                         )
                 )));
     }
 
     @Test
     public void getPersonsByName() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.get("/persons").param("name", "MORA"))
+        mvc.perform(MockMvcRequestBuilders.get("/persons").param("name", "SOTO"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("person/persons"))
                 .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
@@ -75,13 +61,13 @@ public class PersonControllerTest {
                 .andExpect(model().attribute("personList",
                         hasItem(
                                 allOf(
-                                        hasProperty("id", Matchers.is(1L)),
-                                        hasProperty("name", Matchers.is("Rafael Alejandro Manrique Zamora")),
+                                        hasProperty("id", Matchers.is(4L)),
+                                        hasProperty("name", Matchers.is("Erika Soto")),
                                         hasProperty("office", allOf(
-                                                hasProperty("id", Matchers.is(1L)),
-                                                hasProperty("name", Matchers.is("CUU")),
+                                                hasProperty("id", Matchers.is(2L)),
+                                                hasProperty("name", Matchers.is("HMO")),
                                                 hasProperty("personList", hasSize(2)),
-                                                hasProperty("officeManagers", hasSize(1))
+                                                hasProperty("officeManagers", hasSize(2))
                                         ))
                                 )
                         )
@@ -99,18 +85,18 @@ public class PersonControllerTest {
 
     @Test
     public void getPersonById() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.get("/persons/{id}", 1))
+        mvc.perform(MockMvcRequestBuilders.get("/persons/{id}", 6))
                 .andExpect(status().isOk())
                 .andExpect(view().name("person/person"))
                 .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
                 .andExpect(model().attribute("person",
                     allOf(
-                            hasProperty("id", Matchers.is(1L)),
-                            hasProperty("name", Matchers.is("Rafael Alejandro Manrique Zamora")),
+                            hasProperty("id", Matchers.is(6L)),
+                            hasProperty("name", Matchers.is("Martha Urrea")),
                             hasProperty("office", allOf(
-                                    hasProperty("id", Matchers.is(1L)),
-                                    hasProperty("name", Matchers.is("CUU")),
-                                    hasProperty("personList", hasSize(2)),
+                                    hasProperty("id", Matchers.is(3L)),
+                                    hasProperty("name", Matchers.is("CDMX")),
+                                    hasProperty("personList", hasSize(1)),
                                     hasProperty("officeManagers", hasSize(1))
                             ))
                     )

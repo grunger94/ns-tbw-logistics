@@ -30,7 +30,7 @@ public class OfficeRepositoryTest {
         Assert.assertEquals(office.getId(), new Long(1));
         Assert.assertEquals(office.getName(), "CUU");
         Assert.assertNotNull(office.getPersonList());
-        Assert.assertEquals(office.getPersonList().size(), 2);
+        Assert.assertEquals(office.getPersonList().size(), 3);
         Assert.assertNotNull(office.getOfficeManagers());
         Assert.assertEquals(office.getOfficeManagers().size(), 1);
     }
@@ -60,7 +60,7 @@ public class OfficeRepositoryTest {
         Assert.assertEquals(office.getId(), new Long(1));
         Assert.assertEquals(office.getName(), "CUU");
         Assert.assertNotNull(office.getPersonList());
-        Assert.assertEquals(office.getPersonList().size(), 2);
+        Assert.assertEquals(office.getPersonList().size(), 3);
         Assert.assertNotNull(office.getOfficeManagers());
         Assert.assertEquals(office.getOfficeManagers().size(), 1);
     }
@@ -79,16 +79,16 @@ public class OfficeRepositoryTest {
 
         Assert.assertNotNull(officeList);
         Assert.assertFalse(officeList.isEmpty());
-        Assert.assertEquals(officeList.size(), 1);
+        Assert.assertEquals(officeList.size(), 3);
 
-        Office office = officeList.get(0);
+        Office office = officeList.get(1);
 
-        Assert.assertEquals(office.getId(), new Long(1));
-        Assert.assertEquals(office.getName(), "CUU");
+        Assert.assertEquals(office.getId(), new Long(2));
+        Assert.assertEquals(office.getName(), "HMO");
         Assert.assertNotNull(office.getPersonList());
         Assert.assertEquals(office.getPersonList().size(), 2);
         Assert.assertNotNull(office.getOfficeManagers());
-        Assert.assertEquals(office.getOfficeManagers().size(), 1);
+        Assert.assertEquals(office.getOfficeManagers().size(), 2);
     }
 
     @Test(expected = InvalidDataAccessApiUsageException.class)

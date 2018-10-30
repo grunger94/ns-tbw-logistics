@@ -70,6 +70,6 @@ public class OfficeServiceTest {
         List<Office> offices = officeService.findByName("");
         Assert.assertNotNull(offices);
         Assert.assertFalse(offices.isEmpty());
-        Assert.assertEquals(offices.size(), 1);
+        Assert.assertEquals(offices.size(), 3);
     }
 }

@@ -35,29 +35,47 @@ public class OfficeControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("office/offices"))
                 .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
-                .andExpect(model().attribute("officeList", hasSize(1)))
-                .andExpect(model().attribute("officeList", hasItem(
-                        allOf(
-                                hasProperty("id", Matchers.is(1L)),
-                                hasProperty("name", Matchers.is("CUU")),
-                                hasProperty("officeManagers", hasSize(1)),
-                                hasProperty("personList", hasSize(2))
+                .andExpect(model().attribute("officeList", hasSize(3)))
+                .andExpect(model().attribute("officeList", allOf(
+                        hasItem(
+                            allOf(
+                                    hasProperty("id", Matchers.is(1L)),
+                                    hasProperty("name", Matchers.is("CUU")),
+                                    hasProperty("officeManagers", hasSize(1)),
+                                    hasProperty("personList", hasSize(3))
+                            )
+                        ),
+                        hasItem(
+                                allOf(
+                                        hasProperty("id", Matchers.is(2L)),
+                                        hasProperty("name", Matchers.is("HMO")),
+                                        hasProperty("officeManagers", hasSize(2)),
+                                        hasProperty("personList", hasSize(2))
+                                )
+                        ),
+                        hasItem(
+                                allOf(
+                                        hasProperty("id", Matchers.is(3L)),
+                                        hasProperty("name", Matchers.is("CDMX")),
+                                        hasProperty("officeManagers", hasSize(1)),
+                                        hasProperty("personList", hasSize(1))
+                                )
                         )
                 )));
     }
 
     @Test
     public void getOfficesByName() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.get("/offices").param("name", "CUU"))
+        mvc.perform(MockMvcRequestBuilders.get("/offices").param("name", "HMO"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("office/offices"))
                 .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
                 .andExpect(model().attribute("officeList", hasSize(1)))
                 .andExpect(model().attribute("officeList", hasItem(
                         allOf(
-                                hasProperty("id", Matchers.is(1L)),
-                                hasProperty("name", Matchers.is("CUU")),
-                                hasProperty("officeManagers", hasSize(1)),
+                                hasProperty("id", Matchers.is(2L)),
+                                hasProperty("name", Matchers.is("HMO")),
+                                hasProperty("officeManagers", hasSize(2)),
                                 hasProperty("personList", hasSize(2))
                         )
                 )));
@@ -82,7 +100,7 @@ public class OfficeControllerTest {
                         allOf(
                                 hasProperty("id", Matchers.is(1L)),
                                 hasProperty("name", Matchers.is("CUU")),
-                                hasProperty("personList", hasSize(2)),
+                                hasProperty("personList", hasSize(3)),
                                 hasProperty("officeManagers", hasSize(1))
                         )
                 ));
